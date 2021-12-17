@@ -1,9 +1,9 @@
-import React from 'react';
-import cities from '../lib/city.list.json';
-import Link from 'next/link';
+import React from "react";
+import cities from "../lib/city.list.json";
+import Link from "next/link";
 
 function SearchBox() {
-  const [query, setQuery] = React.useState('');
+  const [query, setQuery] = React.useState("");
   const [results, setResults] = React.useState([]);
 
   const onChange = (e) => {
@@ -23,7 +23,7 @@ function SearchBox() {
         if (match) {
           const cityData = {
             ...city,
-            slug: `${city.name.toLowerCase().replace(/ /g, '-')}-${city.id}`
+            slug: `${city.name.toLowerCase().replace(/ /g, "-")}-${city.id}`,
           };
 
           matchingCities.push(cityData);
@@ -42,25 +42,23 @@ function SearchBox() {
         <ul>
           {results.length > 0 ? (
             results.map((city, index) => (
-            <li key={index}>
-              <Link
-                href={`/location/${city.slug}`}
-              >
-                <a>
-                  {city.name}
-                  {city.state ? `, ${city.state}` : ''}
-                  <span>({city.country})</span>
-                </a>
-              </Link>
-            </li>
+              <li key={index}>
+                <Link href={`/location/${city.slug}`}>
+                  <a>
+                    {city.name}
+                    {city.state ? `, ${city.state} ` : " "}
+                    <span>({city.country})</span>
+                  </a>
+                </Link>
+              </li>
             ))
-            ) : (
+          ) : (
             <li className="search__no-result">No results</li>
           )}
         </ul>
       )}
     </div>
-  )
+  );
 }
 
-export default SearchBox
+export default SearchBox;
