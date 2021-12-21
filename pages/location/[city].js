@@ -1,7 +1,12 @@
 import React from "react";
 import Head from "next/head";
+import moment from "moment-timezone";
 import cities from "../../lib/city.list.json";
-import TodaysWeatherComponent from "../../components/TodaysWeather";
+import Link from "next/link";
+import TodaysWeather from "../../components/TodaysWeather";
+import HourlyWeather from "../../components/HourlyWeather";
+import WeeklyWeather from "../../components/WeeklyWeather";
+import SearchBox from "../../components/SearchBox";
 
 export async function getServerSideProps(context) {
   const city = getCity(context.params.city);
@@ -30,7 +35,7 @@ export async function getServerSideProps(context) {
       timezone: data.timezone,
       currentWeather: data.current,
       dailyWeather: data.daily,
-      hourlyWeather: getHourlyWeather(data.hourly),
+      hourlyWeather: getHourlyWeather(data.hourly, data.timezone),
     },
   };
 }
@@ -53,14 +58,11 @@ const getCity = (param) => {
   }
 };
 
-const getHourlyWeather = (hourlyData) => {
-  const current = new Date();
-  current.setHours(current.getHours(), 0, 0, 0);
-  const tomorrow = new Date(current);
+const getHourlyWeather = (hourlyData, timezone) => {
+  const now = moment().tz(timezone).startOf("hour").valueOf();
+  const tomorrow = new Date(now);
   tomorrow.setDate(tomorrow.getDate() + 1);
-
-  const currentTimeStamp = Math.floor(current.getTime() / 1000);
-  const tomorrowTimeStamp = Math.floor(tomorrow.getTime() / 1000);
+  const tomorrowTimeStamp = Math.floor(tomorrow / 1000);
 
   const todaysData = hourlyData.filter((data) => data.dt < tomorrowTimeStamp);
   return todaysData;
@@ -81,13 +83,19 @@ export default function City({
 
       <div className="page-wrapper">
         <div className="container">
-          <TodaysWeatherComponent
+          <Link href="/">
+            <a className="back-link">&larr; Home</a>
+          </Link>
+          <SearchBox placeholder="Search for another location..." />
+          <TodaysWeather
             currentWeather={currentWeather}
             timezone={timezone}
             hourlyWeather={hourlyWeather}
             city={city}
             weather={dailyWeather[0]}
           />
+          <HourlyWeather hourlyWeather={hourlyWeather} timezone={timezone} />
+          <WeeklyWeather weeklyWeather={dailyWeather} timezone={timezone} />
         </div>
       </div>
     </div>

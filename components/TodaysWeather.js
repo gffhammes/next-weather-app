@@ -9,7 +9,9 @@ export default function TodaysWeather({
   currentWeather,
   hourlyWeather,
 }) {
-  console.log(hourlyWeather, weather)
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
   return (
     <div className="today shadow-1">
       <div className="today__inner">
@@ -17,7 +19,7 @@ export default function TodaysWeather({
           <div className="today__icon-wrapper">
             <Image
               src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@4x.png`}
-              alt={`${weather.weather[0].description} icon`}
+              alt={`${weather.weather[0].description}`}
               layout="fill"
               objectFit="cover"
             />
@@ -38,12 +40,12 @@ export default function TodaysWeather({
 
           <span>
             {
-              moment.locale("pt-br"),
-              moment.unix(hourlyWeather[0].dt).tz(timezone).format("dddd, LT")
+              (moment.locale("pt-br"),
+              moment.unix(hourlyWeather[0].dt).tz(timezone).format("dddd, LT"))
             }
           </span>
 
-          <span>{weather.weather[0].description}</span>
+          <span>{capitalizeFirstLetter(weather.weather[0].description)}</span>
         </div>
       </div>
     </div>
