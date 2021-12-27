@@ -18,32 +18,39 @@ export default function WeeklyWeather({ weeklyWeather, timezone }) {
           return (
             <div className="weekly__card" key={weather.dt}>
               <div className="weekly__inner">
-                <div className="weekly__left-content">
+                <div className="icon-wrapper">
+                  <Image
+                    src={`/images/${weather.weather[0].icon}-cg.png`}
+                    alt={weather.weather[0].description}
+                    height={60}
+                    width={60}
+                    objectFit="contain"
+                    objectPosition={"left"}
+                  />
+                </div>
+
+                <div className="week-day">
+                  <span>
+                    {moment.unix(weather.dt).tz(timezone).format("dddd")}
+                  </span>
+                  <span>{weather.weather[0].main}</span>
+                </div>
+
+                <div className="max-temp">
+                  <span>Max</span>
+                  <span>{weather.temp.max.toFixed(0)}&deg;C</span>
+                </div>
+
+                <div className="min-temp">
+                  <span>Min</span>
+                  <span>{weather.temp.min.toFixed(0)}&deg;C</span>
+                </div>
+
+                {/*<div className="weekly__left-content">
                   <div>
                     <h3>
                       {moment.unix(weather.dt).tz(timezone).format("dddd")}
                     </h3>
-
-                    <h4>
-                      <span>🔥 {weather.temp.max.toFixed(0)}&deg;C</span>
-                      <span>🧊 {weather.temp.min.toFixed(0)}&deg;C</span>
-                    </h4>
-                  </div>
-
-                  <div className="weekly__sun-times">
-                    <div>
-                      <span>Sunrise</span>
-                      <span>
-                        {moment.unix(weather.sunrise).tz(timezone).format("LT")}
-                      </span>
-                    </div>
-
-                    <div>
-                      <span>Sunset</span>
-                      <span>
-                        {moment.unix(weather.sunset).tz(timezone).format("LT")}
-                      </span>
-                    </div>
                   </div>
                 </div>
 
@@ -57,10 +64,8 @@ export default function WeeklyWeather({ weeklyWeather, timezone }) {
                     />
                   </div>
 
-                  <h5>
-                    {weather.weather[0].description}
-                  </h5>
-                </div>
+                  <h5>{weather.weather[0].main}</h5>
+          </div>*/}
               </div>
             </div>
           );

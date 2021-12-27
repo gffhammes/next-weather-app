@@ -12,40 +12,40 @@ export default function TodaysWeather({
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
+
+  console.log(weather);
   return (
-    <div className="today shadow-1">
+    <div className="today">
       <div className="today__inner">
         <div className="today__left-content">
           <div className="today__icon-wrapper">
             <Image
-              src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@4x.png`}
+              src={`/images/${weather.weather[0].icon}.png`}
               alt={`${weather.weather[0].description}`}
-              layout="fill"
-              objectFit="cover"
+              height={80}
+              width={80}
+              objectFit="contain"
+              priority={true}
             />
           </div>
-          <h2>{currentWeather.temp.toFixed(1)}&deg;C</h2>
-          <span className="temp-max">
-            🔥 {weather.temp.max.toFixed(0)}&deg;C
-          </span>
-          <span className="temp-min">
-            🧊 {weather.temp.min.toFixed(0)}&deg;C
-          </span>
+          <div className="today__weather">
+            <h1>{currentWeather.temp.toFixed(1)}&deg;C</h1>
+            <span>{capitalizeFirstLetter(weather.weather[0].description)}</span>
+          </div>
         </div>
 
         <div className="today__right-content">
-          <h1>
-            {city.name} ({city.country})
-          </h1>
-
-          <span>
-            {
-              (moment.locale("pt-br"),
-              moment.unix(hourlyWeather[0].dt).tz(timezone).format("dddd, LT"))
-            }
-          </span>
-
-          <span>{capitalizeFirstLetter(weather.weather[0].description)}</span>
+          <div className="thermometer-wrapper">
+            <Image
+              src={`/images/thermometer.png`}
+              alt={'thermometer'}
+              layout="fill"
+              objectFit="contain"
+              priority={true}
+            />
+          </div>
+          <span className="max-temp">{weather.temp.max.toFixed(0)}&deg;C</span>
+          <span className="min-temp">{weather.temp.min.toFixed(0)}&deg;C</span>
         </div>
       </div>
     </div>

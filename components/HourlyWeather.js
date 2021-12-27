@@ -21,17 +21,18 @@ export default function HourlyWeather({ hourlyWeather, timezone }) {
                 </div>
                 <div className="hourly__icon-wrapper">
                   <Image
-                    src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@4x.png`}
+                    src={`/images/${weather.weather[0].icon}-c.png`}
                     alt={`${weather.weather[0].description}`}
                     height='100'
                     width='100'
+                    priority={true}
                   />
                 </div>
-                <span className="hourly__weather">
-                  {weather.weather[0].main}
-                </span>
                 <span className="hourly__temp">
                   {weather.temp.toFixed(0)}&deg;C
+                </span>
+                <span className="hourly__weather">
+                  {weather.weather[0].main}
                 </span>
               </div>
             </div>

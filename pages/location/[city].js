@@ -86,7 +86,7 @@ export default function City({
           <Link href="/">
             <a className="back-link">&larr; Home</a>
           </Link>
-          <SearchBox placeholder="Search for another location..." />
+          <SearchBox placeholder={`${city.name}${city.state ? `, ${city.state} ` : " "}(${city.country})`}/>
           <TodaysWeather
             currentWeather={currentWeather}
             timezone={timezone}
