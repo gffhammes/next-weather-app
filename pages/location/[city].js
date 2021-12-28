@@ -83,10 +83,12 @@ export default function City({
 
       <div className="page-wrapper">
         <div className="container">
-          <Link href="/">
-            <a className="back-link">&larr; Home</a>
-          </Link>
-          <SearchBox placeholder={`${city.name}${city.state ? `, ${city.state} ` : " "}(${city.country})`}/>
+          <div className="menu">
+            <Link href="/">
+              <a className="back-link">&larr; Home</a>
+            </Link>
+            <SearchBox placeholder={`${city.name}${city.state ? `, ${city.state} ` : " "}(${city.country})`}/>
+          </div>
           <TodaysWeather
             currentWeather={currentWeather}
             timezone={timezone}

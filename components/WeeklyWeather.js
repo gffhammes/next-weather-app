@@ -3,12 +3,12 @@ import moment from "moment-timezone";
 import Image from "next/image";
 
 export default function WeeklyWeather({ weeklyWeather, timezone }) {
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   return (
     <div className="weekly">
-      <h3 className="weekly__title">
-        Weekly <span>Weather</span>
-      </h3>
-
       {weeklyWeather.length > 0 &&
         weeklyWeather.map((weather, index) => {
           if (index == 0) {
@@ -22,8 +22,8 @@ export default function WeeklyWeather({ weeklyWeather, timezone }) {
                   <Image
                     src={`/images/${weather.weather[0].icon}-cg.png`}
                     alt={weather.weather[0].description}
-                    height={60}
-                    width={60}
+                    height={40}
+                    width={40}
                     objectFit="contain"
                     objectPosition={"left"}
                   />
@@ -33,7 +33,7 @@ export default function WeeklyWeather({ weeklyWeather, timezone }) {
                   <span>
                     {moment.unix(weather.dt).tz(timezone).format("dddd")}
                   </span>
-                  <span>{weather.weather[0].main}</span>
+                  <span>{capitalizeFirstLetter(weather.weather[0].description)}</span>
                 </div>
 
                 <div className="max-temp">
