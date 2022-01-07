@@ -10,8 +10,6 @@ import SearchBox from "../../components/SearchBox";
 
 export async function getServerSideProps(context) {
   const city = getCity(context.params.city);
-  
-  console.log("1");
 
   if (!city) {
     return {
@@ -23,11 +21,7 @@ export async function getServerSideProps(context) {
     `https://api.openweathermap.org/data/2.5/onecall?lat=${city.coord.lat}&lon=${city.coord.lon}&appid=${process.env.NEXT_PUBLIC_API_KEY}&units=metric&exclude=minutely`
   );
 
-  console.log("2");
-
   const data = await res.json();
-
-  console.log("3");
 
   if (!data) {    
     return {
