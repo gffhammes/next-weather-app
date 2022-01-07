@@ -12,6 +12,8 @@ export async function getServerSideProps(context) {
   const city = getCity(context.params.city);
 
   if (!city) {
+    console.log("city not found");
+
     return {
       notFound: true,
     };
@@ -24,6 +26,8 @@ export async function getServerSideProps(context) {
   const data = await res.json();
 
   if (!data) {
+    console.log("data not found");
+    
     return {
       notFound: true,
     };
@@ -87,7 +91,11 @@ export default function City({
             <Link href="/">
               <a className="back-link">&larr; Home</a>
             </Link>
-            <SearchBox placeholder={`${city.name}${city.state ? `, ${city.state} ` : " "}(${city.country})`}/>
+            <SearchBox
+              placeholder={`${city.name}${
+                city.state ? `, ${city.state} ` : " "
+              }(${city.country})`}
+            />
           </div>
           <TodaysWeather
             currentWeather={currentWeather}
